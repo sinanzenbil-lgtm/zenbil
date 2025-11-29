@@ -1,36 +1,188 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CarBreeze - Araç Kiralama Sistemi
 
-## Getting Started
+Modern ve kullanıcı dostu bir araç kiralama web uygulaması. Next.js 14, TypeScript, Tailwind CSS ve PostgreSQL ile geliştirilmiştir.
 
-First, run the development server:
+## 🚀 Özellikler
 
+### Müşteri Tarafı
+- ✅ Modern ve responsive ana sayfa
+- ✅ Gelişmiş rezervasyon formu (lokasyon, tarih ve saat seçimi)
+- ✅ Müsait araçları listeleme ve filtreleme
+- ✅ Detaylı araç bilgileri ve görsel galeri
+- ✅ Gerçek zamanlı müsaitlik kontrolü
+- ✅ Kolay rezervasyon oluşturma
+- ✅ Rezervasyon onay sayfası
+
+### Yönetim Paneli
+- ✅ Güvenli admin girişi (NextAuth.js)
+- ✅ Dashboard ve istatistikler
+- ✅ Araç yönetimi (CRUD işlemleri)
+- ✅ Rezervasyon yönetimi
+- ✅ Rezervasyon durum güncelleme
+- ✅ Lokasyon/Şube yönetimi
+- ✅ Araç-lokasyon ilişkilendirme
+
+### Teknik Özellikler
+- ✅ Çakışan rezervasyonları engelleme
+- ✅ Tarih ve saat bazlı müsaitlik kontrolü
+- ✅ Lokasyon bazlı araç filtreleme
+- ✅ Responsive tasarım (mobile-first)
+- ✅ Form validasyonları
+- ✅ Toast bildirimleri
+- ✅ SEO optimizasyonu
+
+## 🛠️ Teknoloji Stack
+
+- **Frontend**: Next.js 14 (App Router), React, TypeScript
+- **Styling**: Tailwind CSS, shadcn/ui
+- **Backend**: Next.js API Routes
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **Authentication**: NextAuth.js
+- **Form Management**: React Hook Form + Zod
+- **Date Handling**: date-fns
+
+## 📦 Kurulum
+
+### Gereksinimler
+- Node.js 18+
+- PostgreSQL 14+
+- npm veya yarn
+
+### Adımlar
+
+1. **Bağımlılıkları yükleyin:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Veritabanını yapılandırın:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`.env` dosyasını düzenleyin:
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/carbreeze?schema=public"
+NEXTAUTH_SECRET="your-secret-key-here"
+NEXTAUTH_URL="http://localhost:3000"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Veritabanını oluşturun:**
+```bash
+npx prisma generate
+npx prisma db push
+```
 
-## Learn More
+4. **Seed data'yı yükleyin:**
+```bash
+npm run prisma:seed
+```
 
-To learn more about Next.js, take a look at the following resources:
+Bu komut şunları oluşturur:
+- Admin kullanıcı (email: admin@carbreeze.com, şifre: admin123)
+- 3 lokasyon (Sabiha Gökçen, İstanbul Havalimanı, Şişli)
+- 5 örnek araç
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. **Geliştirme sunucusunu başlatın:**
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Uygulama http://localhost:3000 adresinde çalışacaktır.
 
-## Deploy on Vercel
+## 📱 Kullanım
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Müşteri Tarafı
+1. Ana sayfada lokasyon, tarih ve saat seçin
+2. "Müsait Araçları Ara" butonuna tıklayın
+3. Filtreleri kullanarak araçları inceleyin
+4. Beğendiğiniz aracın detaylarına gidin
+5. Rezervasyon formunu doldurun
+6. Rezervasyonunuzu tamamlayın
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Admin Paneli
+1. `/admin/giris` adresine gidin
+2. Admin bilgileriyle giriş yapın
+   - Email: admin@carbreeze.com
+   - Şifre: admin123
+3. Dashboard'dan sistemi yönetin:
+   - Araç ekleyin/düzenleyin/silin
+   - Rezervasyonları görüntüleyin ve durumlarını güncelleyin
+   - Lokasyonları yönetin
+
+## 🗂️ Proje Yapısı
+
+```
+/app
+  /(public)           # Müşteri tarafı sayfalar
+    /page.tsx         # Ana sayfa
+    /araclar          # Araç listeleme ve detay
+    /rezervasyon      # Rezervasyon işlemleri
+  /admin              # Yönetim paneli
+    /giris            # Admin girişi
+    /araclar          # Araç yönetimi
+    /rezervasyonlar   # Rezervasyon yönetimi
+    /lokasyonlar      # Lokasyon yönetimi
+  /api                # API routes
+    /auth             # NextAuth
+    /vehicles         # Araç API'leri
+    /reservations     # Rezervasyon API'leri
+    /locations        # Lokasyon API'leri
+/components
+  /ui                 # shadcn/ui bileşenleri
+  /reservation-form.tsx
+  /vehicle-card.tsx
+/lib
+  /prisma.ts          # Prisma client
+  /auth.ts            # NextAuth config
+  /utils.ts           # Yardımcı fonksiyonlar
+  /validations.ts     # Zod şemaları
+  /availability.ts    # Müsaitlik kontrolü
+/prisma
+  /schema.prisma      # Veritabanı şeması
+  /seed.ts            # Seed data
+```
+
+## 🗄️ Veritabanı Şeması
+
+### Tablolar
+- **Admin**: Yönetici kullanıcıları
+- **Location**: Şubeler/Lokasyonlar
+- **Vehicle**: Araçlar
+- **VehicleLocation**: Araç-Lokasyon ilişkisi (many-to-many)
+- **Reservation**: Rezervasyonlar
+
+## 🔐 Güvenlik
+
+- Admin rotaları middleware ile korunur
+- Şifreler bcrypt ile hashlenir
+- NextAuth.js ile session yönetimi
+- Input validasyonları (client & server)
+- SQL injection koruması (Prisma ORM)
+
+## 🎨 UI/UX
+
+- Modern ve temiz arayüz
+- Responsive tasarım (mobile, tablet, desktop)
+- Loading states ve skeleton loaders
+- Error handling ve kullanıcı bildirimleri
+- Kolay navigasyon
+- Erişilebilir form elemanları
+
+## 📝 Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır.
+
+## 👨‍💻 Geliştirici
+
+CarBreeze - 2024
+
+## 🤝 Katkıda Bulunma
+
+1. Fork edin
+2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Commit edin (`git commit -m 'Add some amazing feature'`)
+4. Push edin (`git push origin feature/amazing-feature`)
+5. Pull Request açın
+
+## 📞 İletişim
+
+Sorularınız için: info@carbreeze.com
