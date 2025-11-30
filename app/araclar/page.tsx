@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -17,7 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Car } from "lucide-react";
 
-export default function VehiclesPage() {
+function VehiclesPageContent() {
   const searchParams = useSearchParams();
   const [vehicles, setVehicles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -209,5 +210,13 @@ export default function VehiclesPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function VehiclesPage() {
+  return (
+    <Suspense fallback={<div>Yükleniyor...</div>}>
+      <VehiclesPageContent />
+    </Suspense>
   );
 }
