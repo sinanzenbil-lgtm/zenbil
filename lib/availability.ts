@@ -40,12 +40,12 @@ export async function checkVehicleAvailability(
     }
 
     const existingPickup = combineDateAndTime(
-      reservation.pickupDate,
-      reservation.pickupTime
+      reservation.pickupDate as Date,
+      reservation.pickupTime as string
     );
     const existingReturn = combineDateAndTime(
-      reservation.returnDate,
-      reservation.returnTime
+      reservation.returnDate as Date,
+      reservation.returnTime as string
     );
 
     const hasOverlap = areIntervalsOverlapping(
