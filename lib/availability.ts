@@ -33,6 +33,12 @@ export async function checkVehicleAvailability(
 
   // Çakışma kontrolü
   for (const reservation of overlappingReservations) {
+    // Skip rezervasyonları eğer gerekli alanlar yoksa
+    if (!reservation.pickupDate || !reservation.returnDate || 
+        !reservation.pickupTime || !reservation.returnTime) {
+      continue;
+    }
+
     const existingPickup = combineDateAndTime(
       reservation.pickupDate,
       reservation.pickupTime
