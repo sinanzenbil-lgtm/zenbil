@@ -32,7 +32,13 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const vehicles = await getAvailableVehicles(locationId, pickup, returnD)
+    const vehicles = await getAvailableVehicles({
+      locationId,
+      pickupDate: pickup,
+      returnDate: returnD,
+      pickupTime: "09:00",
+      returnTime: "09:00",
+    })
 
     return NextResponse.json({ vehicles })
   } catch (error) {
