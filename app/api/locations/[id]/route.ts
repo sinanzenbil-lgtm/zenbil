@@ -5,11 +5,12 @@ import { locationSchema } from "@/lib/validations"
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const location = await prisma.location.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
 
     if (!location) {
@@ -31,7 +32,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const authenticated = await isAuthenticated(request)
@@ -39,11 +40,12 @@ export async function PUT(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const { id } = await params;
     const body = await request.json()
     const validatedData = locationSchema.parse(body)
 
     const location = await prisma.location.update({
-      where: { id: params.id },
+      where: { id },
       data: validatedData,
     })
 
@@ -59,7 +61,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const authenticated = await isAuthenticated(request)
@@ -67,8 +69,9 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const { id } = await params;
     await prisma.location.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({ success: true })
