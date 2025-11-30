@@ -31,13 +31,11 @@ export async function GET(request: NextRequest) {
         { status: 400 }
       )
     }
-
-    const vehicles = await getAvailableVehicles({
-      locationId,
-      pickupDate: pickup,
-      returnDate: returnD,
-      pickupTime: "09:00",
-      returnTime: "09:00",
+const vehicles = await getAvailableVehicles({
+  locationId,
+  pickup,
+  returnD,
+})
     })
 
     return NextResponse.json({ vehicles })
