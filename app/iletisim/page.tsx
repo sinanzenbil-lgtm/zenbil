@@ -96,8 +96,8 @@ export default function IletisimPage() {
                   <Mail className="w-5 h-5 text-primary" />
                   <div>
                     <p className="font-semibold">Email</p>
-                    <a href="mailto:info@carbreeze.com" className="text-muted-foreground hover:text-primary">
-                      info@carbreeze.com
+                    <a href="mailto:info@carbreeze.com.tr" className="text-muted-foreground hover:text-primary">
+                      info@carbreeze.com.tr
                     </a>
                   </div>
                 </div>

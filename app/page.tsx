@@ -171,7 +171,7 @@ export default function HomePage() {
             <div>
               <h3 className="text-lg font-semibold mb-4">İletişim</h3>
               <ul className="space-y-2 text-gray-400">
-                <li>Email: info@carbreeze.com</li>
+                <li>Email: info@carbreeze.com.tr</li>
                 <li>Tel: 0530 131 32 58</li>
                 <li>Adres: Fulya, Mehmetçik Cd. No:48/D, 34394 Şişli/İstanbul</li>
               </ul>
