@@ -17,7 +17,7 @@ export const authOptions = {
         }
 
         const admin = await prisma.admin.findUnique({
-          where: { email: credentials.email },
+          where: { email: credentials.email as string },
         });
 
         if (!admin) {
@@ -25,7 +25,7 @@ export const authOptions = {
         }
 
         const isPasswordValid = await bcrypt.compare(
-          credentials.password,
+          credentials.password as string,
           admin.password
         );
 
