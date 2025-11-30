@@ -191,7 +191,7 @@ function VehicleDetailPageContent() {
                 </div>
 
                 {/* Vehicle Image */}
-                <div className="relative h-96 rounded-lg overflow-hidden mb-6">
+                <div className="relative h-[500px] rounded-lg overflow-hidden mb-6">
                   <Image
                     src={vehicle.images[0] || "/placeholder-car.jpg"}
                     alt={`${vehicle.brand} ${vehicle.model}`}
