@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -8,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency, formatDateTime } from "@/lib/utils";
 import { CheckCircle, Car, Calendar, MapPin, User, Mail, Phone } from "lucide-react";
 
-export default function ReservationSuccessPage() {
+function ReservationSuccessContent() {
   const searchParams = useSearchParams();
   const reservationId = searchParams.get("id");
   const [reservation, setReservation] = useState<any>(null);
@@ -166,5 +167,13 @@ export default function ReservationSuccessPage() {
         )}
       </Card>
     </div>
+  );
+}
+
+export default function ReservationSuccessPage() {
+  return (
+    <Suspense fallback={<div>Yükleniyor...</div>}>
+      <ReservationSuccessContent />
+    </Suspense>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -56,7 +57,7 @@ const timeSlots = [
   "20:00",
 ];
 
-export default function VehicleDetailPage() {
+function VehicleDetailPageContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -480,5 +481,13 @@ export default function VehicleDetailPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function VehicleDetailPage() {
+  return (
+    <Suspense fallback={<div>Yükleniyor...</div>}>
+      <VehicleDetailPageContent />
+    </Suspense>
   );
 }
