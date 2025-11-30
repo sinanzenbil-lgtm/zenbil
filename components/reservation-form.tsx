@@ -86,38 +86,40 @@ export function ReservationForm() {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    <Card className="bg-white/98 backdrop-blur-md shadow-2xl border-0 rounded-2xl overflow-hidden">
-      <CardContent className="p-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="location" className="text-gray-800 font-semibold text-base flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-primary" />
-                Lokasyon
-              </Label>
-              <Select
-                value={formData.locationId}
-                onValueChange={(value) =>
-                  setFormData({ ...formData, locationId: value })
-                }
-                required
-              >
-                <SelectTrigger id="location" className="h-14 text-base border-2 hover:border-primary focus:border-primary transition-all rounded-xl bg-gray-50/50">
-                  <SelectValue placeholder="Şube seçin" />
-                </SelectTrigger>
-                <SelectContent className="bg-white z-50">
-                  {locations.map((location) => (
-                    <SelectItem key={location.id} value={location.id} className="cursor-pointer">
-                      {location.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+    <Card className="bg-white shadow-2xl border-0 rounded-3xl overflow-hidden">
+      <CardContent className="p-10">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Lokasyon */}
+          <div className="space-y-3">
+            <Label htmlFor="location" className="text-gray-700 font-medium text-sm flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-orange-500" />
+              Lokasyon
+            </Label>
+            <Select
+              value={formData.locationId}
+              onValueChange={(value) =>
+                setFormData({ ...formData, locationId: value })
+              }
+              required
+            >
+              <SelectTrigger id="location" className="h-14 text-base border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all rounded-xl bg-white hover:bg-gray-50">
+                <SelectValue placeholder="Şube seçin" />
+              </SelectTrigger>
+              <SelectContent className="bg-white z-50 rounded-xl shadow-xl border-gray-200">
+                {locations.map((location) => (
+                  <SelectItem key={location.id} value={location.id} className="cursor-pointer hover:bg-orange-50 rounded-lg">
+                    {location.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="pickupDate" className="text-gray-800 font-semibold text-base flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-primary" />
+          {/* Alış Tarihi ve Saati */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <Label htmlFor="pickupDate" className="text-gray-700 font-medium text-sm flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-orange-500" />
                 Alış Tarihi
               </Label>
               <Input
@@ -128,14 +130,14 @@ export function ReservationForm() {
                 onChange={(e) =>
                   setFormData({ ...formData, pickupDate: e.target.value })
                 }
-                className="h-14 text-base border-2 hover:border-primary focus:border-primary transition-all rounded-xl bg-gray-50/50"
+                className="h-14 text-base border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all rounded-xl bg-white hover:bg-gray-50"
                 required
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="pickupTime" className="text-gray-800 font-semibold text-base flex items-center gap-2">
-                <Clock className="w-4 h-4 text-primary" />
+            <div className="space-y-3">
+              <Label htmlFor="pickupTime" className="text-gray-700 font-medium text-sm flex items-center gap-2">
+                <Clock className="w-4 h-4 text-orange-500" />
                 Alış Saati
               </Label>
               <Select
@@ -144,22 +146,25 @@ export function ReservationForm() {
                   setFormData({ ...formData, pickupTime: value })
                 }
               >
-                <SelectTrigger id="pickupTime" className="h-14 text-base border-2 hover:border-primary focus:border-primary transition-all rounded-xl bg-gray-50/50">
+                <SelectTrigger id="pickupTime" className="h-14 text-base border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all rounded-xl bg-white hover:bg-gray-50">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-white z-50">
+                <SelectContent className="bg-white z-50 rounded-xl shadow-xl border-gray-200">
                   {timeSlots.map((time) => (
-                    <SelectItem key={time} value={time} className="cursor-pointer">
+                    <SelectItem key={time} value={time} className="cursor-pointer hover:bg-orange-50 rounded-lg">
                       {time}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
+          </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="returnDate" className="text-gray-800 font-semibold text-base flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-primary" />
+          {/* Dönüş Tarihi ve Saati */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <Label htmlFor="returnDate" className="text-gray-700 font-medium text-sm flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-orange-500" />
                 Dönüş Tarihi
               </Label>
               <Input
@@ -170,14 +175,14 @@ export function ReservationForm() {
                 onChange={(e) =>
                   setFormData({ ...formData, returnDate: e.target.value })
                 }
-                className="h-14 text-base border-2 hover:border-primary focus:border-primary transition-all rounded-xl bg-gray-50/50"
+                className="h-14 text-base border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all rounded-xl bg-white hover:bg-gray-50"
                 required
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="returnTime" className="text-gray-800 font-semibold text-base flex items-center gap-2">
-                <Clock className="w-4 h-4 text-primary" />
+            <div className="space-y-3">
+              <Label htmlFor="returnTime" className="text-gray-700 font-medium text-sm flex items-center gap-2">
+                <Clock className="w-4 h-4 text-orange-500" />
                 Dönüş Saati
               </Label>
               <Select
@@ -186,12 +191,12 @@ export function ReservationForm() {
                   setFormData({ ...formData, returnTime: value })
                 }
               >
-                <SelectTrigger id="returnTime" className="h-14 text-base border-2 hover:border-primary focus:border-primary transition-all rounded-xl bg-gray-50/50">
+                <SelectTrigger id="returnTime" className="h-14 text-base border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all rounded-xl bg-white hover:bg-gray-50">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-white z-50">
+                <SelectContent className="bg-white z-50 rounded-xl shadow-xl border-gray-200">
                   {timeSlots.map((time) => (
-                    <SelectItem key={time} value={time} className="cursor-pointer">
+                    <SelectItem key={time} value={time} className="cursor-pointer hover:bg-orange-50 rounded-lg">
                       {time}
                     </SelectItem>
                   ))}
@@ -200,7 +205,7 @@ export function ReservationForm() {
             </div>
           </div>
 
-          <Button type="submit" className="w-full h-16 text-lg font-bold shadow-lg hover:shadow-2xl transition-all rounded-xl bg-gradient-to-r from-[#ff8c00] to-[#ff6600] hover:from-[#ff6600] hover:to-[#ff8c00]" size="lg">
+          <Button type="submit" className="w-full h-16 text-lg font-bold shadow-lg hover:shadow-2xl transition-all duration-300 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 transform hover:scale-[1.02]" size="lg">
             <Search className="w-5 h-5 mr-2" />
             Müsait Araçları Ara
           </Button>

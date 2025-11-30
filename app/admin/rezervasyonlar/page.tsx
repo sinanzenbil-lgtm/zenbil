@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { Eye, Search } from "lucide-react";
+import { Eye, Search, Plus } from "lucide-react";
 
 const statusLabels: Record<string, string> = {
   PENDING: "Beklemede",
@@ -95,11 +95,19 @@ export default function AdminReservationsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold mb-2">Rezervasyon Yönetimi</h1>
-        <p className="text-muted-foreground">
-          Tüm rezervasyonları görüntüleyin ve yönetin
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">Rezervasyon Yönetimi</h1>
+          <p className="text-muted-foreground">
+            Tüm rezervasyonları görüntüleyin ve yönetin
+          </p>
+        </div>
+        <Button asChild>
+          <Link href="/admin/rezervasyonlar/yeni">
+            <Plus className="w-4 h-4 mr-2" />
+            Yeni Rezervasyon
+          </Link>
+        </Button>
       </div>
 
       <Card>

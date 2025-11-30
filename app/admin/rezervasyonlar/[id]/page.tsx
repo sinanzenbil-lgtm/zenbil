@@ -293,10 +293,10 @@ export default function ReservationDetailPage() {
                 onValueChange={handleStatusChange}
                 disabled={updating}
               >
-                <SelectTrigger>
+                <SelectTrigger className="bg-white">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white">
                   <SelectItem value="PENDING">Beklemede</SelectItem>
                   <SelectItem value="CONFIRMED">Onaylandı</SelectItem>
                   <SelectItem value="COMPLETED">Tamamlandı</SelectItem>

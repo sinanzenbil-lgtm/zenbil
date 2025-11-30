@@ -101,8 +101,8 @@ export function VehicleCard({ vehicle, searchParams }: VehicleCardProps) {
           </p>
           <p className="text-xs text-muted-foreground">günlük</p>
         </div>
-        <Button asChild>
-          <Link href={detailUrl}>Detaylar</Link>
+        <Button asChild size="lg" className="font-bold">
+          <Link href={detailUrl}>SEÇ</Link>
         </Button>
       </CardFooter>
     </Card>

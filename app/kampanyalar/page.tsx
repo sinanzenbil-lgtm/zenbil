@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/site-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tag, Calendar, Gift } from "lucide-react";
+import { Tag, Calendar, Gift, Percent } from "lucide-react";
 
 export default function KampanyalarPage() {
   const campaigns = [

@@ -76,26 +76,27 @@ model VehicleLocation {
 
 model Reservation {
   id           String            @id @default(cuid())
-  vehicleId    String
-  locationId   String
-  pickupDate   DateTime
-  returnDate   DateTime
-  pickupTime   String
-  returnTime   String
-  firstName    String
-  lastName     String
-  email        String
-  phone        String
-  idNumber     String
+  vehicleId    String?
+  locationId   String?
+  pickupDate   DateTime?
+  returnDate   DateTime?
+  pickupTime   String?
+  returnTime   String?
+  firstName    String?
+  lastName     String?
+  email        String?
+  phone        String?
+  idNumber     String?
+  licenseNo    String?
   totalPrice   Float
-  deposit      Float
+  deposit      Float             @default(0)
   status       ReservationStatus @default(PENDING)
   notes        String?
   createdAt    DateTime          @default(now())
   updatedAt    DateTime          @updatedAt
 
-  vehicle  Vehicle  @relation(fields: [vehicleId], references: [id])
-  location Location @relation(fields: [locationId], references: [id])
+  vehicle  Vehicle?  @relation(fields: [vehicleId], references: [id])
+  location Location? @relation(fields: [locationId], references: [id])
 
   @@map("reservations")
 }
