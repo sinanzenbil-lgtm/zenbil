@@ -23,23 +23,32 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
+      console.log("Login attempt with:", formData.email);
       const result = await signIn("credentials", {
         email: formData.email,
         password: formData.password,
         redirect: false,
       });
 
+      console.log("SignIn result:", result);
+
       if (result?.error) {
-        toast.error(result.error);
+        console.error("Login error:", result.error);
+        toast.error(`Giriş hatası: ${result.error}`);
       } else if (result?.ok) {
-        toast.success("Giriş başarılı!");
+        console.log("Login successful, redirecting...");
+        toast.success("Giriş başarılı! Yönlendiriliyor...");
         // Hard redirect to ensure session is properly loaded
-        window.location.href = "/admin";
+        setTimeout(() => {
+          window.location.href = "/admin";
+        }, 500);
       } else {
+        console.error("Unexpected result:", result);
         toast.error("Giriş yapılamadı. Lütfen bilgilerinizi kontrol edin.");
       }
     } catch (error) {
-      toast.error("Bir hata oluştu");
+      console.error("Login exception:", error);
+      toast.error("Bir hata oluştu: " + (error as Error).message);
     } finally {
       setIsLoading(false);
     }
