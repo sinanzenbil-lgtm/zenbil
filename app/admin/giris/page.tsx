@@ -31,10 +31,12 @@ export default function LoginPage() {
 
       if (result?.error) {
         toast.error(result.error);
-      } else {
+      } else if (result?.ok) {
         toast.success("Giriş başarılı!");
-        router.push("/admin");
-        router.refresh();
+        // Hard redirect to ensure session is properly loaded
+        window.location.href = "/admin";
+      } else {
+        toast.error("Giriş yapılamadı. Lütfen bilgilerinizi kontrol edin.");
       }
     } catch (error) {
       toast.error("Bir hata oluştu");
