@@ -22,11 +22,26 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
 
+    // Get form data directly from form elements
+    const form = e.target as HTMLFormElement;
+    const emailInput = form.querySelector('#email') as HTMLInputElement;
+    const passwordInput = form.querySelector('#password') as HTMLInputElement;
+    
+    const email = emailInput?.value || formData.email;
+    const password = passwordInput?.value || formData.password;
+
+    console.log("Form data:", { email, password: password ? "***" : "empty", formDataEmail: formData.email });
+
+    if (!email || !password) {
+      toast.error("Lütfen email ve şifre girin");
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      console.log("Login attempt with:", formData.email);
       const result = await signIn("credentials", {
-        email: formData.email,
-        password: formData.password,
+        email,
+        password,
         redirect: false,
       });
 
