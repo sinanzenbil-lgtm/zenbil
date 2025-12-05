@@ -37,7 +37,16 @@ yarn-error.log*
 next-env.d.ts
 
 # prisma
-prisma/migrations
+/prisma/migrations
 
-# Mali Müşavir App (separate project)
+# Mali Müşavirlik Uygulaması (Ayrı Proje)
 mali-musavir-app/
+
+# Backup files
+backups/
+*.sql
+*.dump
+
+# Temporary scripts
+check-*.mjs
+check-*.js
