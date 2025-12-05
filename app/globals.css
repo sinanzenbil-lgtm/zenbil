@@ -68,3 +68,14 @@
     color: hsl(var(--foreground));
   }
 }
+
+/* Shimmer animation for progress bar */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+  background-size: 200% 100%;
+}

@@ -7,8 +7,8 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CarBreeze - Araç Kiralama",
-  description: "Güvenilir ve kolay araç kiralama hizmeti",
+  title: "zenbil.com - Yapım Aşamasında",
+  description: "zenbil.com çok yakında sizlerle!",
 };
 
 export default function RootLayout({
