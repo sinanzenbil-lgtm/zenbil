@@ -63,11 +63,38 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await request.json();
+    console.log("[VEHICLE POST] Received data:", JSON.stringify(data, null, 2));
+    
     const { locationIds, ...vehicleData } = data;
+
+    // Validate required fields
+    if (!vehicleData.brand || !vehicleData.model || !vehicleData.plate) {
+      return NextResponse.json(
+        { error: "Marka, model ve plaka zorunludur" },
+        { status: 400 }
+      );
+    }
+
+    if (!locationIds || locationIds.length === 0) {
+      return NextResponse.json(
+        { error: "En az bir lokasyon seçilmelidir" },
+        { status: 400 }
+      );
+    }
+
+    // Convert string numbers to actual numbers
+    const vehicleDataProcessed = {
+      ...vehicleData,
+      year: parseInt(vehicleData.year),
+      dailyPrice: parseFloat(vehicleData.dailyPrice),
+      deposit: parseFloat(vehicleData.deposit),
+    };
+
+    console.log("[VEHICLE POST] Processed data:", vehicleDataProcessed);
 
     const vehicle = await prisma.vehicle.create({
       data: {
-        ...vehicleData,
+        ...vehicleDataProcessed,
         locations: {
           create: locationIds.map((locationId: string) => ({
             locationId,
@@ -83,11 +110,13 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    console.log("[VEHICLE POST] Vehicle created:", vehicle.id);
     return NextResponse.json({ vehicle });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Vehicles POST error:", error);
+    console.error("Error details:", error.message, error.code);
     return NextResponse.json(
-      { error: "Araç oluşturulurken bir hata oluştu" },
+      { error: error.message || "Araç oluşturulurken bir hata oluştu" },
       { status: 500 }
     );
   }
