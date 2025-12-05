@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,12 +14,6 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Search, MapPin, Calendar, Clock } from "lucide-react";
-
-const locations = [
-  { id: "sabiha-gokcen", name: "Sabiha Gökçen Havalimanı" },
-  { id: "istanbul-havalimani", name: "İstanbul Havalimanı" },
-  { id: "sisli", name: "Şişli Şube" },
-];
 
 const timeSlots = [
   "09:00",
@@ -38,6 +32,7 @@ const timeSlots = [
 
 export function ReservationForm() {
   const router = useRouter();
+  const [locations, setLocations] = useState<any[]>([]);
   
   // Default tarihleri hesapla
   const getDefaultDates = () => {
@@ -62,6 +57,20 @@ export function ReservationForm() {
     pickupTime: "10:00",
     returnTime: "10:00",
   });
+
+  useEffect(() => {
+    fetchLocations();
+  }, []);
+
+  const fetchLocations = async () => {
+    try {
+      const response = await fetch("/api/locations");
+      const data = await response.json();
+      setLocations(data.locations || []);
+    } catch (error) {
+      console.error("Error fetching locations:", error);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
