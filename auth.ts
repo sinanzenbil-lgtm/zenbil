@@ -18,33 +18,46 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        if (!credentials?.email || !credentials?.password) {
+        try {
+          console.log("[AUTH] Authorize called with:", { email: credentials?.email });
+          
+          if (!credentials?.email || !credentials?.password) {
+            console.log("[AUTH] Missing credentials");
+            return null;
+          }
+
+          console.log("[AUTH] Querying database...");
+          const admin = await prisma.admin.findUnique({
+            where: { email: credentials.email as string },
+          });
+
+          if (!admin) {
+            console.log("[AUTH] Admin not found");
+            return null;
+          }
+
+          console.log("[AUTH] Admin found, checking password...");
+          const isPasswordValid = await bcrypt.compare(
+            credentials.password as string,
+            admin.password
+          );
+
+          if (!isPasswordValid) {
+            console.log("[AUTH] Invalid password");
+            return null;
+          }
+
+          console.log("[AUTH] Login successful");
+          return {
+            id: admin.id,
+            email: admin.email,
+            name: `${admin.firstName} ${admin.lastName}`,
+            role: "ADMIN",
+          };
+        } catch (error) {
+          console.error("[AUTH] Error in authorize:", error);
           return null;
         }
-
-        const admin = await prisma.admin.findUnique({
-          where: { email: credentials.email as string },
-        });
-
-        if (!admin) {
-          return null;
-        }
-
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password as string,
-          admin.password
-        );
-
-        if (!isPasswordValid) {
-          return null;
-        }
-
-        return {
-          id: admin.id,
-          email: admin.email,
-          name: `${admin.firstName} ${admin.lastName}`,
-          role: "ADMIN",
-        };
       },
     }),
   ],
