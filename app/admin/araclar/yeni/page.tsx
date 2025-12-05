@@ -70,6 +70,8 @@ export default function NewVehiclePage() {
     setLoading(true);
 
     try {
+      console.log("Submitting vehicle data:", formData);
+      
       const response = await fetch("/api/vehicles", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -79,15 +81,18 @@ export default function NewVehiclePage() {
         }),
       });
 
+      const data = await response.json();
+      console.log("Response:", data);
+
       if (!response.ok) {
-        throw new Error("Araç eklenemedi");
+        throw new Error(data.error || "Araç eklenemedi");
       }
 
       toast.success("Araç başarıyla eklendi");
       router.push("/admin/araclar");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creating vehicle:", error);
-      toast.error("Araç eklenirken bir hata oluştu");
+      toast.error(error.message || "Araç eklenirken bir hata oluştu");
     } finally {
       setLoading(false);
     }
