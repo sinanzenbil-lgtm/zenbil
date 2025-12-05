@@ -115,9 +115,6 @@ export default function LoginPage() {
               {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
             </Button>
           </form>
-          <div className="mt-4 text-center text-sm text-muted-foreground">
-            <p>Test hesabı: admin@carbreeze.com / admin123</p>
-          </div>
         </CardContent>
       </Card>
     </div>
