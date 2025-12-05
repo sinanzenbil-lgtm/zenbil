@@ -40,6 +40,9 @@ export function SiteHeader({ showBackButton = false, backUrl = "/", backText = "
             <Link href="/iletisim" className="text-sm font-medium hover:text-primary">
               İletişim
             </Link>
+            <Link href="/oyun" className="text-sm font-medium hover:text-primary">
+              🎮 Oyun
+            </Link>
             <Link href="/admin/giris" className="text-sm font-medium hover:text-primary">
               Admin Girişi
             </Link>
