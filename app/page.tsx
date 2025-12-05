@@ -1,4 +1,4 @@
-import { Car, Wrench, Mail, Phone } from "lucide-react";
+import { Car, Wrench, Mail } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -70,13 +70,6 @@ export default function HomePage() {
           >
             <Mail className="w-5 h-5" />
             <span>info@zenbil.com</span>
-          </a>
-          <a 
-            href="tel:+905301313258" 
-            className="flex items-center gap-2 hover:text-cyan-400 transition-colors"
-          >
-            <Phone className="w-5 h-5" />
-            <span>0530 131 32 58</span>
           </a>
         </div>
       </div>
