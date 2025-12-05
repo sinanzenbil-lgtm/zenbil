@@ -100,23 +100,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Oyun Section */}
-      <section className="py-16 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4">🎮 Eğlence Zamanı!</h2>
-            <p className="text-xl text-muted-foreground mb-6">
-              Rezervasyon yapmadan önce biraz eğlenmek ister misiniz?
-            </p>
-            <Button size="lg" asChild className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-              <Link href="/oyun">
-                🐍 Snake Oyununu Oyna
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* Features Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
