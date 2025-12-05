@@ -82,6 +82,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if plate already exists
+    const existingVehicle = await prisma.vehicle.findUnique({
+      where: { plate: vehicleData.plate }
+    });
+
+    if (existingVehicle) {
+      return NextResponse.json(
+        { error: `Bu plaka (${vehicleData.plate}) zaten kayıtlı. Lütfen farklı bir plaka girin.` },
+        { status: 400 }
+      );
+    }
+
     // Convert string numbers to actual numbers
     const vehicleDataProcessed = {
       ...vehicleData,
